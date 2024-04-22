@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "632682427758",
+    "project_id": "iris-aeeff",
+    "storage_bucket": "iris-aeeff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:632682427758:android:05301d8e68dfaf16ee3d7f",
+        "android_client_info": {
+          "package_name": "com.example.healwiz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQza-YQUQY3RrUZeSOg00LnHm11ZCIv8k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:632682427758:android:5a6c08a20b55aa1bee3d7f",
+        "android_client_info": {
+          "package_name": "com.example.iris"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQza-YQUQY3RrUZeSOg00LnHm11ZCIv8k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
