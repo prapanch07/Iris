@@ -13,7 +13,6 @@ import 'package:healwiz/screens/disease%20screens/about.dart';
 import 'package:healwiz/Screens/login.dart';
 import 'package:healwiz/themes/theme.dart';
 
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -57,34 +56,43 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  Future<void> _signout()async {
+  Future<void> _signout() async {
     Auth().signOut();
 
-    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => SignInScreen() ,));
-
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) => SignInScreen(),
+    ));
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(
-        child: ListView(children:  [
-          UserAccountsDrawerHeader(
-            decoration: const BoxDecoration(
-              color: Colors.deepPurple
-              
+        child: ListView(
+          children: [
+            UserAccountsDrawerHeader(
+              decoration: const BoxDecoration(color: Colors.deepPurple),
+              accountName: Text(
+                _userName,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              accountEmail: Text(''),
+              currentAccountPicture: CircleAvatar(
+                backgroundColor: Colors.brown,
+              ),
             ),
-            accountName: Text(_userName ,style: TextStyle(fontWeight: FontWeight.bold,),), 
-            accountEmail: Text(''),
-            currentAccountPicture: CircleAvatar(
-              backgroundColor: Colors.brown,
-                        
-            ),),
-            CustomTextDrawer(drawertext: 'About us', function: _navigateToAboutUs),
-            CustomTextDrawer(drawertext: 'Contact us',function: (){},),
-
-        ],),
+            CustomTextDrawer(
+              drawertext: 'About us',
+              function: () {},
+            ),
+            CustomTextDrawer(
+              drawertext: 'Contact us',
+              function: () {},
+            ),
+          ],
+        ),
       ),
-      
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
         title: Text(
@@ -92,8 +100,12 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(color: AppColor.kWhite, letterSpacing: 1),
         ),
         actions: [
-          IconButton(onPressed: () async{ },icon: Icon(Icons.logout
-          ),)
+          IconButton(
+            onPressed: () async {
+              await Auth().signOut();
+            },
+            icon: Icon(Icons.logout),
+          )
         ],
       ),
       body: Padding(
@@ -218,19 +230,19 @@ void _navigateToParkinsons(BuildContext context) {
   );
 }
 
-
 class CustomTextDrawer extends StatelessWidget {
   final String drawertext;
   final VoidCallback function;
-const CustomTextDrawer({ Key? key, required this.drawertext, required this.function }) : super(key: key);
-@override
-Widget build(BuildContext context) {
-return InkWell(
-  onTap: function,
-child: Text(drawertext),
-
-);
-}
+  const CustomTextDrawer(
+      {Key? key, required this.drawertext, required this.function})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: function,
+      child: Text(drawertext),
+    );
+  }
 }
 
 void _navigateToAboutUs(BuildContext context) {
