@@ -56,10 +56,10 @@ class _ScreenArthrerisState extends State<ScreenArthreris> {
           CustomImagePicker(
             function: () => selectImage(),
           ),
-          Image(
+        image !=null ?  Image(
             image: MemoryImage(image!),
-          )
-        ]),
+          ) :Text('no image')
+        ],),
       ),
     );
   }
