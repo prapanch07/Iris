@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -211,7 +213,7 @@ class Items {
 List<Items> listOfItems = [
   Items(
     img: "assets/1.png",
-    title: "Welcome to HealWiz!",
+    title: "Welcome to IRIS!",
     subTitle: "Revolutionize the way you manage your health, starting now",
   ),
   Items(

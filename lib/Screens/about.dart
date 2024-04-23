@@ -52,15 +52,19 @@ class AboutUsPage extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              '- Adhithyan M',
+              '- Adithyan M',
               style: TextStyle(fontSize: 16),
             ),
             Text(
-              '- Gautham',
+              '- Adhithyan s',
               style: TextStyle(fontSize: 16),
             ),
             Text(
-              '- Sreehari',
+              '- Gautham SB',
+              style: TextStyle(fontSize: 16),
+            ),
+            Text(
+              '- Sreehari AL',
               style: TextStyle(fontSize: 16),
             ),
             SizedBox(height: 24),

@@ -6,13 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:healwiz/Screens/auth.dart';
+import 'package:healwiz/Screens/onboarding_screen.dart';
 import 'package:healwiz/Screens/disease%20screens/arthretis_screen.dart';
 import 'package:healwiz/Screens/disease%20screens/covid_screen.dart';
 import 'package:healwiz/Screens/disease%20screens/parkinson_screen.dart';
-import 'package:healwiz/screens/disease%20screens/about.dart';
-import 'package:healwiz/Screens/login.dart';
+import 'package:healwiz/Screens/about.dart';
+import 'package:healwiz/Screens/contact.dart';
 import 'package:healwiz/themes/theme.dart';
-
+import 'package:healwiz/Screens/login.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -76,25 +77,31 @@ class _HomeScreenState extends State<HomeScreen> {
             accountName: Text(_userName ,style: TextStyle(fontWeight: FontWeight.bold,),), 
             accountEmail: Text(''),
             currentAccountPicture: CircleAvatar(
-              backgroundColor: Colors.brown,
-                        
+            backgroundColor: Colors.brown,
+            backgroundImage: AssetImage('assets/avatar.jpg'),          
             ),),
-            CustomTextDrawer(drawertext: 'About us', function: _navigateToAboutUs),
-            CustomTextDrawer(drawertext: 'Contact us',function: (){},),
-
-        ],),
+                 CustomTextDrawer(
+              drawertext: 'About us',
+              function: _navigateToAboutUs,
+            ),
+            CustomTextDrawer(
+              drawertext: 'Contact us',
+              function: _navigateTocontactUsPage,
+            ),
+            CustomTextDrawer(
+              drawertext: 'sign out',
+              function: _navigateToIntroductionPageView,
+            ),
+          ],
+        ),
       ),
-      
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
         title: Text(
           'IRIS',
           style: TextStyle(color: AppColor.kWhite, letterSpacing: 1),
         ),
-        actions: [
-          IconButton(onPressed: () async{ },icon: Icon(Icons.logout
-          ),)
-        ],
+       
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -103,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Predict Your Dieseas',
+              'Choose the Disease to be Predicted',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 25,
@@ -112,17 +119,17 @@ class _HomeScreenState extends State<HomeScreen> {
             const Gap(20),
             CustomListTile(
               predictfunction: () => _navigateToArthretis(context),
-              diseasname: 'arthretis',
+              diseasname: 'arthritis',
               icon: Icons.local_hospital,
             ),
             CustomListTile(
               predictfunction: () => _navigateToPnemonia_Covid(context),
-              diseasname: 'pnewumonia/covid',
+              diseasname: 'pneumonia/covid-19',
               icon: Icons.local_hospital,
             ),
             CustomListTile(
               predictfunction: () => _navigateToParkinsons(context),
-              diseasname: 'parkinson',
+              diseasname: 'parkinson Disease',
               icon: Icons.local_hospital,
             ),
           ],
@@ -131,6 +138,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+
 
 class CustomListTile extends StatelessWidget {
   final String diseasname;
@@ -217,22 +226,6 @@ void _navigateToParkinsons(BuildContext context) {
     ),
   );
 }
-
-
-class CustomTextDrawer extends StatelessWidget {
-  final String drawertext;
-  final VoidCallback function;
-const CustomTextDrawer({ Key? key, required this.drawertext, required this.function }) : super(key: key);
-@override
-Widget build(BuildContext context) {
-return InkWell(
-  onTap: function,
-child: Text(drawertext),
-
-);
-}
-}
-
 void _navigateToAboutUs(BuildContext context) {
   Navigator.of(context).push(
     MaterialPageRoute(
@@ -240,3 +233,38 @@ void _navigateToAboutUs(BuildContext context) {
     ),
   );
 }
+void _navigateTocontactUsPage(BuildContext context) {
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (context) => ContactUsPage(),
+    ),
+  );
+}
+void _navigateToIntroductionPageView(BuildContext context) {
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (context) => IntroductionPageView(),
+    ),
+  );
+}
+class CustomTextDrawer extends StatelessWidget {
+  final String drawertext;
+  final void Function(BuildContext) function; // Accepts a function with BuildContext parameter
+  const CustomTextDrawer({Key? key, required this.drawertext, required this.function})
+      : super(key: key);
+
+  @override
+   Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => function(context), // Invoke the function with BuildContext parameter
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24), // Adjust padding here
+        child: Text(
+          drawertext,
+          style: TextStyle(fontSize: 18), // Adjust text size here
+        ),
+      ),
+    );
+  }
+}
+
