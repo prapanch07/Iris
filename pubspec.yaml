@@ -27,8 +27,8 @@ environment:
 # dependencies can be manually updated by changing the version numbers below to
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
-dependencies:
-  animate_do: ^3.3.3 
+dependencies: 
+  animate_do: ^3.3.3
   animated_text_kit: ^4.2.2
   cloud_firestore: ^4.14.0
   cupertino_icons: ^1.0.2
@@ -42,15 +42,15 @@ dependencies:
     sdk: flutter
   gap: ^3.0.1
   google_fonts: ^6.1.0
-  google_sign_in: ^6.2.1 
+  google_sign_in: ^6.2.1
+  http: ^1.2.1
+  image_picker: ^1.1.0
   lottie: ^3.0.0
   neumorphic_button: ^0.0.1+2
   percent_indicator: ^4.2.3
   smooth_page_indicator: ^1.1.0
-  image_picker: ^1.1.0
 
-
-dev_dependencies: 
+dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
