@@ -78,7 +78,9 @@ class _ScreenArthrerisState extends State<ScreenArthreris> {
         final responseData = await response.stream.toBytes();
         final decodedResponse = utf8.decode(responseData);
 
-        setState(() {
+         
+
+        setState(() { 
           predicteddata = decodedResponse;
         });
 

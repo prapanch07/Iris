@@ -110,28 +110,29 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Choose the Disease to be Predicted',
+              'Choose the Disease',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 25,
               ),
             ),
             const Gap(20),
-            CustomListTile(
-              predictfunction: () => _navigateToArthretis(context),
-              diseasname: 'arthritis',
-              icon: Icons.local_hospital,
-            ),
-            CustomListTile(
-              predictfunction: () => _navigateToPnemonia_Covid(context),
-              diseasname: 'pneumonia/covid-19',
-              icon: Icons.local_hospital,
-            ),
-            CustomListTile(
-              predictfunction: () => _navigateToParkinsons(context),
-              diseasname: 'parkinson Disease',
-              icon: Icons.local_hospital,
-            ),
+          CustomListTile(
+  predictFunction: () => _navigateToArthretis(context),
+  diseaseName: 'Chest',
+  imagePath: 'assets/11.png',
+),
+CustomListTile(
+  predictFunction: () => _navigateToPnemonia_Covid(context),
+  diseaseName: 'Alzheimer',
+  imagePath: 'assets/13.png',
+),
+CustomListTile(
+  predictFunction: () => _navigateToParkinsons(context),
+  diseaseName: 'Parkinson',
+  imagePath: 'assets/12.png',
+),
+
           ],
         ),
       ),
@@ -139,33 +140,64 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
+class CustomListTile extends StatefulWidget {
+  final String diseaseName;
+  final String imagePath;
+  final VoidCallback predictFunction;
 
+  const CustomListTile({
+    Key? key,
+    required this.diseaseName,
+    required this.imagePath,
+    required this.predictFunction,
+  }) : super(key: key);
 
-class CustomListTile extends StatelessWidget {
-  final String diseasname;
-  final IconData icon;
-  final VoidCallback predictfunction;
-  const CustomListTile(
-      {super.key,
-      required this.diseasname,
-      required this.icon,
-      required this.predictfunction});
+  @override
+  State<CustomListTile> createState() => _CustomListTileState();
+}
+
+class _CustomListTileState extends State<CustomListTile> {
+  bool _isTapped = false;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
-      child: Container(
-        height: 80,
-        decoration: const BoxDecoration(
-          color: Colors.black26,
-        ),
-        child: Center(
-          child: ListTile(
-            leading: Icon(icon),
-            title: Text(diseasname),
-            trailing: PredictButton(
-              function: predictfunction,
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            _isTapped = true;
+          });
+          widget.predictFunction();
+        },
+        onTapCancel: () {
+          setState(() {
+            _isTapped = false;
+          });
+        },
+        onTapUp: (_) {
+          setState(() {
+            _isTapped = false;
+          });
+        },
+        child: AnimatedContainer(
+          duration: Duration(milliseconds: 200),
+          curve: Curves.easeInOut,
+          height: 220,
+          width: 350,
+          decoration: BoxDecoration(
+            color: _isTapped ? Colors.deepPurple : Colors.black26,
+            borderRadius: BorderRadius.circular(30), // Adjust the radius for curved edges
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(30), // Clip the image with curved borders
+            child: Center(
+              child: Image.asset(
+                widget.imagePath,
+                width: 350,
+                height: 220,
+                fit: BoxFit.fill,
+              ),
             ),
           ),
         ),
@@ -214,7 +246,7 @@ void _navigateToArthretis(BuildContext context) {
 void _navigateToPnemonia_Covid(BuildContext context) {
   Navigator.of(context).push(
     MaterialPageRoute(
-      builder: (context) => ScreenPnewmonia_Covid(),
+      builder: (context) => ScreenAlzheimer(),
     ),
   );
 }
@@ -267,4 +299,3 @@ class CustomTextDrawer extends StatelessWidget {
     );
   }
 }
-
