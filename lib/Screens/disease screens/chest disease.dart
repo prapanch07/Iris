@@ -101,7 +101,7 @@ class _ScreenArthrerisState extends State<ScreenChestDisease> {
     return RefreshIndicator(
       onRefresh: () => _sendImage(),
       child: Scaffold(
-        appBar: AppBar( 
+        appBar: AppBar(
           backgroundColor: Colors.deepPurple,
           title: Text(
             'chest disease ',
@@ -151,7 +151,8 @@ class _ScreenArthrerisState extends State<ScreenChestDisease> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 40),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 0, horizontal: 40),
                 child: Align(
                   alignment: Alignment.bottomLeft,
                   child: Text(
@@ -191,7 +192,9 @@ class CustomImagePicker extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               'Select Image',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(
+                color: Colors.white,
+              ),
             ),
           ),
         ),

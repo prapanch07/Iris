@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healwiz/Screens/home_screen.dart';
 import 'package:healwiz/Screens/sign_up.dart';
+import 'package:healwiz/firebase/auth.dart';
 
 import '../themes/theme.dart';
 
@@ -18,31 +19,69 @@ class _SignInScreenState extends State<SignInScreen> {
   TextEditingController emailC = TextEditingController();
   TextEditingController passwordC = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  bool isloading = false;
 
-  Future<void> _signInWithEmailAndPassword() async {
-    try {
-      print(
-          "Attempting to sign in with email: ${emailC.text.trim()}"); // Debug log
-      final UserCredential userCredential =
-          await _auth.signInWithEmailAndPassword(
-        email: emailC.text.trim(),
-        password: passwordC.text.trim(),
-      );
-      final User? user = userCredential.user;
-      print("User signed in: ${user!.email}"); // Debug log
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('${user.email} signed in'),
-        ),
-      );
-    } catch (e) {
-      print("Failed to sign in: $e"); // Debug log
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Failed to sign in with email and password: $e'),
-        ),
-      );
+  // Future<void> _signInWithEmailAndPassword() async {
+  //   try {
+  //     print(
+  //         "Attempting to sign in with email: ${emailC.text.trim()}"); // Debug log
+  //     final UserCredential userCredential =
+  //         await _auth.signInWithEmailAndPassword(
+  //       email: emailC.text.trim(),
+  //       password: passwordC.text.trim(),
+  //     );
+  //     final User? user = userCredential.user;
+  //     print("User signed in: ${user!.email}"); // Debug log
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text('${user.email} signed in'),
+  //       ),
+  //     );
+  //   } catch (e) {
+  //     print("Failed to sign in: $e"); // Debug log
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text('Failed to sign in with email and password: $e'),
+  //       ),
+  //     );
+  //   }
+  // }
+
+  void _customSnackBar(BuildContext context, String text) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(text),
+      ),
+    );
+  }
+
+  void _navigateToHome() {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => const HomeScreen(),
+      ),
+    );
+  }
+
+  void loginUser() async {
+    setState(() {
+      isloading = true;
+    });
+
+    String res = await AuthMethods().login(
+      email: emailC.text,
+      password: passwordC.text,
+    );
+    if (res == 'success') {
+      _navigateToHome();
+      _customSnackBar(context, 'logged in');
+    } else {
+      _customSnackBar(context, res);
     }
+
+    setState(() {
+      isloading = false;
+    });
   }
 
   @override
@@ -152,27 +191,53 @@ class _SignInScreenState extends State<SignInScreen> {
                 const SizedBox(height: 32),
                 Column(
                   children: [
-                    PrimaryButton(
-                      elevation: 0,
-                      onTap: () async {
-                        await _signInWithEmailAndPassword(); // Wait for authentication process to complete
-                        // Navigate to home screen only if authentication is successful
-                        if (_auth.currentUser != null) {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => HomeScreen(),
-                            ),
-                          );
-                        }
-                      },
-                      text: 'LogIn',
-                      bgColor: AppColor.bgColor,
-                      borderRadius: 20,
-                      height: 46,
-                      width: 327,
-                      textColor: AppColor.kWhite,
-                      fontSize: 14,
+                    // PrimaryButton(
+                    //   elevation: 0,
+                    //   onTap: () async {
+                    //     // await _signInWithEmailAndPassword(); // Wait for authentication process to complete
+                    //     // // Navigate to home screen only if authentication is successful
+                    //     // if (_auth.currentUser != null) {
+                    //     //   Navigator.pushReplacement(
+                    //     //     context,
+                    //     //     MaterialPageRoute(
+                    //     //       builder: (context) => HomeScreen(),
+                    //     //     ),
+                    //     //   );
+                    //     // }
+                    //     loginUser();
+                    //   },
+                    //   text: 'LogIn',
+                    //   bgColor: AppColor.bgColor,
+                    //   borderRadius: 20,
+                    //   height: 46,
+                    //   width: 327,
+                    //   textColor: AppColor.kWhite,
+                    //   fontSize: 14,
+                    // ),
+                    InkWell(
+                      onTap: () => loginUser(),
+                      child: Container(
+                        height: 46,
+                        width: 327,
+                        decoration: BoxDecoration(
+                          color: AppColor.bgColor,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Center(
+                          child: isloading
+                              ? CircularProgressIndicator(
+                                  color: AppColor.kWhite,
+                                )
+                              : Text(
+                                  'Login',
+                                  style: TextStyle(
+                                      color: AppColor.kWhite,
+                                      fontSize: 15,
+                                      letterSpacing: 1,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                        ),
+                      ),
                     ),
                     const SizedBox(
                       height: 24,

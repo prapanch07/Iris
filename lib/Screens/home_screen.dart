@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
-import 'package:healwiz/Screens/auth.dart';
+import 'package:healwiz/firebase/auth.dart';
 import 'package:healwiz/Screens/onboarding_screen.dart';
 import 'package:healwiz/Screens/disease%20screens/chest%20disease.dart';
 import 'package:healwiz/Screens/disease%20screens/alzheimer.dart';
@@ -23,7 +23,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool _isLoading = false;
   String _userName = ''; // Variable to hold user's first name
 
   @override
@@ -41,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
         // Get the user document from Firestore
         DocumentSnapshot<Map<String, dynamic>> snapshot =
             await FirebaseFirestore.instance
-                .collection('Users')
+                .collection('users')
                 .doc(user.uid)
                 .get();
 
@@ -49,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
         if (mounted) {
           // Get the user's name field from the document
           setState(() {
-            _userName = snapshot['name'];
+            _userName = snapshot['username'];
           });
         }
       } catch (e) {
@@ -58,12 +57,19 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  Future<void> _signout() async {
-    Auth().signOut();
+  // Future<void> _signout() async {
+  //   Auth().signOut();
 
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => SignInScreen(),
-    ));
+  //   Navigator.of(context).pushReplacement(MaterialPageRoute(
+  //     builder: (context) => SignInScreen(),
+  //   ));
+  // }
+  void _customSnackBar(BuildContext context, String text) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(text),
+      ),
+    );
   }
 
   Widget build(BuildContext context) {
@@ -85,17 +91,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 backgroundImage: AssetImage('assets/avatar.jpg'),
               ),
             ),
-            const CustomTextDrawer(
+            CustomTextDrawer(
               drawertext: 'About us',
-              function: _navigateToAboutUs,
+              function: () => _navigateToAboutUs(context),
             ),
-            const CustomTextDrawer(
+            CustomTextDrawer(
               drawertext: 'Contact us',
-              function: _navigateTocontactUsPage,
+              function: () => _navigateTocontactUsPage(context),
             ),
-            const CustomTextDrawer(
+            CustomTextDrawer(
               drawertext: 'sign out',
-              function: _navigateToIntroductionPageView,
+              function: () {
+                AuthMethods().signout();
+                _customSnackBar(context, 'logged out');
+                _navigateToIntroductionPageView(context);
+              },
             ),
           ],
         ),
@@ -248,26 +258,23 @@ void _navigateTocontactUsPage(BuildContext context) {
 }
 
 void _navigateToIntroductionPageView(BuildContext context) {
-  Navigator.of(context).push(
+  Navigator.of(context).pushReplacement(
     MaterialPageRoute(
-      builder: (context) => IntroductionPageView(),
+      builder: (context) => const IntroductionPageView(),
     ),
   );
 }
 
 class CustomTextDrawer extends StatelessWidget {
   final String drawertext;
-  final void Function(BuildContext)
-      function; // Accepts a function with BuildContext parameter
+  final VoidCallback function;
   const CustomTextDrawer(
-      {Key? key, required this.drawertext, required this.function})
-      : super(key: key);
+      {super.key, required this.drawertext, required this.function});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () =>
-          function(context), // Invoke the function with BuildContext parameter
+      onTap: function, // Invoke the function with BuildContext parameter
       child: Padding(
         padding: const EdgeInsets.symmetric(
             vertical: 16, horizontal: 24), // Adjust padding here
