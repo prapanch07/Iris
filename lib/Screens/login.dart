@@ -53,9 +53,9 @@ class _SignInScreenState extends State<SignInScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: const Icon(
+        leading: Icon(
           Icons.safety_check,
-          color: Colors.white,
+          color: AppColor.kWhite,
         ),
       ),
       body: SingleChildScrollView(
@@ -768,7 +768,7 @@ class PrimaryTextFormField extends StatelessWidget {
           errorBorder: errorBorder,
           focusedErrorBorder: focusedErrorBorder,
         ),
-        onChanged: onChanged, 
+        onChanged: onChanged,
         inputFormatters: inputFormatters,
         onTapOutside: onTapOutside,
       ),

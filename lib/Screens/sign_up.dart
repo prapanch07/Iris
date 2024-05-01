@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../themes/theme.dart';
@@ -17,6 +18,8 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _size = MediaQuery.sizeOf(context);
+
     String name;
 
     return Scaffold(
@@ -24,261 +27,270 @@ class SignUpScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        leading: Icon(
+          Icons.abc,
+          color: AppColor.kWhite,
+        ),
       ),
       body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: SizedBox(
-            width: 327,
-            child: Column(children: [
-              Text(
-                'Create Account',
-                textAlign: TextAlign.center,
-                style: GoogleFonts.plusJakartaSans(
-                  fontSize: 20,
+          padding: EdgeInsets.symmetric(horizontal: _size.width / 14),
+          child: Column(children: [
+            Text(
+              'Create Account',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.plusJakartaSans(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ).copyWith(
+                  color: AppColor.kGrayscaleDark100,
                   fontWeight: FontWeight.w600,
-                ).copyWith(
-                    color: AppColor.kGrayscaleDark100,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 24),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'We happy to see you. Sign Up to your account',
-                textAlign: TextAlign.center,
-                style: GoogleFonts.plusJakartaSans(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.kWhite)
-                    .copyWith(
-                        color: AppColor.kGrayscale40,
+                  fontSize: 24),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'We happy to see you. Sign Up to your account',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.plusJakartaSans(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: AppColor.kWhite)
+                  .copyWith(
+                      color: AppColor.kGrayscale40,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14),
+            ),
+            const SizedBox(height: 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'First Name',
+                      style: GoogleFonts.plusJakartaSans(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: AppColor.kWhite)
+                          .copyWith(
+                        color: AppColor.kGrayscaleDark100,
                         fontWeight: FontWeight.w600,
-                        fontSize: 14),
-              ),
-              const SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'First Name',
-                        style: GoogleFonts.plusJakartaSans(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color: AppColor.kWhite)
-                            .copyWith(
-                                color: AppColor.kGrayscaleDark100,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14),
+                        fontSize: 14,
                       ),
-                      const SizedBox(height: 8),
-                      PrimaryTextFormField(
-                          borderRadius: BorderRadius.circular(24),
-                          hintText: 'First',
-                          controller: firstName,
-                          width: 155,
-                          height: 52)
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Last Name',
-                        style: GoogleFonts.plusJakartaSans(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color: AppColor.kWhite)
-                            .copyWith(
-                                color: AppColor.kGrayscaleDark100,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      PrimaryTextFormField(
-                          borderRadius: BorderRadius.circular(24),
-                          hintText: 'Last',
-                          controller: listName,
-                          width: 155,
-                          height: 52)
-                    ],
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Email',
-                    style: GoogleFonts.plusJakartaSans(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: AppColor.kWhite)
-                        .copyWith(
-                            color: AppColor.kGrayscaleDark100,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14),
-                  ),
-                  const SizedBox(height: 7),
-                  PrimaryTextFormField(
+                    ),
+                    const SizedBox(height: 8),
+                    PrimaryTextFormField(
                       borderRadius: BorderRadius.circular(24),
-                      hintText: 'abc@gmail.com',
-                      controller: emailC,
-                      width: 327,
-                      height: 52)
-                ],
-              ),
-              const SizedBox(height: 15),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Password',
-                    style: GoogleFonts.plusJakartaSans(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: AppColor.kWhite)
-                        .copyWith(
-                            color: AppColor.kGrayscaleDark100,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14),
-                  ),
-                  const SizedBox(height: 8),
-                  PasswordTextField(
-                      borderRadius: BorderRadius.circular(24),
-                      hintText: 'Password',
-                      controller: passwordC,
-                      width: 327,
-                      height: 52)
-                ],
-              ),
-              const SizedBox(height: 28),
-              Column(
-                children: [
-                  PrimaryButton(
-                    elevation: 0,
-                    onTap: () async {
-                      //TODO: Sign up is done if you want you can move this code to auth
+                      hintText: 'First',
+                      controller: firstName,
+                      width: 155,
+                      height: 52,
+                    )
+                  ],
+                ),
+                const Gap(18),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Last Name',
+                      style: GoogleFonts.plusJakartaSans(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: AppColor.kWhite)
+                          .copyWith(
+                              color: AppColor.kGrayscaleDark100,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    PrimaryTextFormField(
+                        borderRadius: BorderRadius.circular(24),
+                        hintText: 'Last',
+                        controller: listName,
+                        width: 155,
+                        height: 52)
+                  ],
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Email',
+                  style: GoogleFonts.plusJakartaSans(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: AppColor.kWhite)
+                      .copyWith(
+                          color: AppColor.kGrayscaleDark100,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14),
+                ),
+                const SizedBox(height: 7),
+                PrimaryTextFormField(
+                    borderRadius: BorderRadius.circular(24),
+                    hintText: 'abc@gmail.com',
+                    controller: emailC,
+                    width: 327,
+                    height: 52)
+              ],
+            ),
+            const SizedBox(height: 15),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Password',
+                  style: GoogleFonts.plusJakartaSans(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: AppColor.kWhite)
+                      .copyWith(
+                          color: AppColor.kGrayscaleDark100,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14),
+                ),
+                const SizedBox(height: 8),
+                PasswordTextField(
+                    borderRadius: BorderRadius.circular(24),
+                    hintText: 'Password',
+                    controller: passwordC,
+                    width: 327,
+                    height: 52)
+              ],
+            ),
+            const SizedBox(height: 28),
+            Column(
+              children: [
+                PrimaryButton(
+                  elevation: 0,
+                  onTap: () async {
+                    //TODO: Sign up is done if you want you can move this code to auth
 
-                      //------From Here
+                    //------From Here
 
-                      try {
-                        UserCredential userCredential =
-                            await _auth.createUserWithEmailAndPassword(
-                          email: emailC.text.trim(),
-                          password: passwordC.text.trim(),
-                        );
+                    try {
+                      UserCredential userCredential =
+                          await _auth.createUserWithEmailAndPassword(
+                        email: emailC.text.trim(),
+                        password: passwordC.text.trim(),
+                      );
 
-                        print(
-                            'This is response of createUserWithEmailAndPassword() method ${userCredential.user!.uid}');
+                      print(
+                          'This is response of createUserWithEmailAndPassword() method ${userCredential.user!.uid}');
 
-                        name = '${firstName.text} ${listName.text}';
-                        print('This is the name of the user $name');
+                      name = '${firstName.text} ${listName.text}';
+                      print('This is the name of the user $name');
 
-                        if (userCredential.user != null) {
-                          //store user data in firestore
-                          CollectionReference users =
-                              FirebaseFirestore.instance.collection('Users');
-                          await users.doc(userCredential.user!.uid).set({
-                            'id': userCredential.user!.uid,
-                            'image': '',
-                            'name': name,
-                            'email': emailC.text.trim(),
-                          });
-                          print('User added to firestore $users');
+                      if (userCredential.user != null) {
+                        //store user data in firestore
+                        CollectionReference users =
+                            FirebaseFirestore.instance.collection('Users');
+                        await users.doc(userCredential.user!.uid).set({
+                          'id': userCredential.user!.uid,
+                          'image': '',
+                          'name': name,
+                          'email': emailC.text.trim(),
+                        });
+                        print('User added to firestore $users');
 
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Sign Up Successful'),
-                            ),
-                          );
-                        }
-                      } catch (e) {
-                        print(e);
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(e.toString()),
+                          const SnackBar(
+                            content: Text('Sign Up Successful'),
                           ),
                         );
                       }
-
-                      //
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => SignInScreen()),
+                    } catch (e) {
+                      print(e);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(e.toString()),
+                        ),
                       );
+                    }
 
-                      //------To Here
-                    },
-                    text: 'Create Account',
-                    bgColor: AppColor.bgColor,
-                    borderRadius: 20,
-                    height: 46,
-                    width: 327,
-                    textColor: AppColor.kWhite,
+                    //
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => SignInScreen()),
+                    );
+
+                    //------To Here
+                  },
+                  text: 'Create Account',
+                  bgColor: AppColor.bgColor,
+                  borderRadius: 20,
+                  height: 46,
+                  width: 327,
+                  textColor: AppColor.kWhite,
+                ),
+                const SizedBox(height: 20),
+                CustomRichText(
+                  title: 'Already have an account? ',
+                  subtitle: 'Log In',
+                  onTab: () => _navigatetoLogin(context),
+                  subtitleTextStyle: GoogleFonts.plusJakartaSans(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: AppColor.kWhite)
+                      .copyWith(
+                          color: AppColor.kGrayscaleDark100,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14),
+                )
+              ],
+            ),
+            const SizedBox(height: 30),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child: Column(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: DividerRow(title: 'Or Sign Up with'),
                   ),
-                  const SizedBox(height: 20),
-                  CustomRichText(
-                    title: 'Already have an account? ',
-                    subtitle: 'Log In',
-                    onTab: () {},
-                    subtitleTextStyle: GoogleFonts.plusJakartaSans(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: AppColor.kWhite)
-                        .copyWith(
-                            color: AppColor.kGrayscaleDark100,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14),
-                  )
+                  const SizedBox(height: 24),
+                  SecondaryButton(
+                      height: 56, 
+                      textColor: AppColor.kGrayscaleDark100,
+                      width: 260,
+                      onTap: () {},
+                      borderRadius: 24,
+                      bgColor: AppColor.kBackground.withOpacity(0.3),
+                      text: 'Continue with Google',
+                      icons: ImagesPath.kGoogleIcon),
                 ],
               ),
-              const SizedBox(height: 30),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40),
-                child: Column(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: DividerRow(title: 'Or Sign Up with'),
-                    ),
-                    const SizedBox(height: 24),
-                    SecondaryButton(
-                        height: 56,
-                        textColor: AppColor.kGrayscaleDark100,
-                        width: 260,
-                        onTap: () {},
-                        borderRadius: 24,
-                        bgColor: AppColor.kBackground.withOpacity(0.3),
-                        text: 'Continue with Google',
-                        icons: ImagesPath.kGoogleIcon),
-                  ],
-                ),
+            ),
+            const SizedBox(height: 23),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 40),
+              child: TermsAndPrivacyText(
+                title1: '  By signing up you agree to our',
+                title2: ' Terms ',
+                title3: '  and',
+                title4: ' Conditions of Use',
               ),
-              const SizedBox(height: 23),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 40),
-                child: TermsAndPrivacyText(
-                  title1: '  By signing up you agree to our',
-                  title2: ' Terms ',
-                  title3: '  and',
-                  title4: ' Conditions of Use',
-                ),
-              ),
-            ]),
-          ),
+            ),
+          ]),
         ),
       ),
     );
   }
+}
+
+void _navigatetoLogin(BuildContext context) {
+  Navigator.of(context).push(MaterialPageRoute(
+    builder: (context) => SignInScreen(),
+  ));
 }
 
 class TermsAndPrivacyText extends StatelessWidget {
