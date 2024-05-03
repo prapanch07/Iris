@@ -54,6 +54,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:healwiz/models/users.dart';
 
 import '../Screens/storage.dart';
@@ -61,6 +62,7 @@ import '../Screens/storage.dart';
 class AuthMethods {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
 
   Future<Users> getUserDetails() async {
     User currentUser = _auth.currentUser!;
@@ -69,6 +71,31 @@ class AuthMethods {
         await _firestore.collection("users").doc(currentUser.uid).get();
 
     return Users.fromSnaptoUserm(snapsht);
+  }
+
+// gisginin
+
+  Future<String> signInWithGoogle() async {
+    String res = 'some error occured';
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+          await googleSignIn.signIn();
+      if (googleSignInAccount != null) {
+        final GoogleSignInAuthentication googleSignInAuthentication =
+            await googleSignInAccount.authentication;
+        final AuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleSignInAuthentication.accessToken,
+          idToken: googleSignInAuthentication.idToken,
+        );
+        await _auth.signInWithCredential(credential);
+        res = 'success';
+      }
+    } on FirebaseAuthException catch (e) {
+      res = e.toString();
+      print(res);
+      throw res;
+    }
+    return res;
   }
 
   // signup
@@ -141,6 +168,7 @@ class AuthMethods {
 
   signout() async {
     await FirebaseAuth.instance.signOut();
+    await googleSignIn.signOut();
   }
 
   resetPassword({

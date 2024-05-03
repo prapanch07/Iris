@@ -276,7 +276,20 @@ class _SignInScreenState extends State<SignInScreen> {
                   height: 56,
                   textColor: AppColor.kGrayscaleDark100,
                   width: 280,
-                  onTap: () {},
+                  onTap: () async {
+                    // some error ... add sha1 to firebase and download google.json file
+
+                    final res = await AuthMethods().signInWithGoogle();
+
+                    if (res == 'success') {
+                      _customSnackBar(context, 'Gsigned IN');
+                      _navigateToHome();
+                    } else {
+                      _customSnackBar(context, res);
+                    }
+
+                    print('asda');
+                  },
                   borderRadius: 24,
                   bgColor: AppColor.kBackground.withOpacity(0.3),
                   text: 'Continue with Google',
