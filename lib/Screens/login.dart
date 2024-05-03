@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healwiz/Screens/home_screen.dart';
+import 'package:healwiz/Screens/password_reset_page.dart';
 import 'package:healwiz/Screens/sign_up.dart';
 import 'package:healwiz/firebase/auth.dart';
 
@@ -182,7 +183,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     PrimaryTextButton(
-                      onPressed: () {},
+                      onPressed: () => _navigateToPasswordReset(context),
                       title: 'Forgot Password?',
                       textStyle: const TextStyle(),
                     )
@@ -299,6 +300,14 @@ class _SignInScreenState extends State<SignInScreen> {
       ),
     );
   }
+}
+
+void _navigateToPasswordReset(BuildContext context) {
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (context) => const PasswordResetPage(),
+    ),
+  );
 }
 
 class ImagesPath {

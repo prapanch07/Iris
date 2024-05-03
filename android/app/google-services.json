@@ -12,7 +12,12 @@
           "package_name": "com.example.healwiz"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "632682427758-hbes4pub6031ee3ks5k3fmrm0ekc439o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAQza-YQUQY3RrUZeSOg00LnHm11ZCIv8k"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "632682427758-hbes4pub6031ee3ks5k3fmrm0ekc439o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     },
@@ -31,7 +41,12 @@
           "package_name": "com.example.iris"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "632682427758-hbes4pub6031ee3ks5k3fmrm0ekc439o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAQza-YQUQY3RrUZeSOg00LnHm11ZCIv8k"
@@ -39,7 +54,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "632682427758-hbes4pub6031ee3ks5k3fmrm0ekc439o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

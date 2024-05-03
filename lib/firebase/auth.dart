@@ -53,6 +53,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:healwiz/models/users.dart';
 
 import '../Screens/storage.dart';
@@ -76,15 +77,11 @@ class AuthMethods {
       {required String username,
       required String email,
       required String password,
-
       BuildContext? context}) async {
     String res = 'some error occured';
 
     try {
-      if (username.isNotEmpty ||
-          email.isEmpty ||
-          password.isEmpty 
-          ) {
+      if (username.isNotEmpty || email.isEmpty || password.isEmpty) {
         // firebase auth signup
 
         final UserCredential cred = await _auth.createUserWithEmailAndPassword(
@@ -144,5 +141,22 @@ class AuthMethods {
 
   signout() async {
     await FirebaseAuth.instance.signOut();
+  }
+
+  resetPassword({
+    required String email,
+    required BuildContext context,
+  }) {
+    try {
+      FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            e.toString(),
+          ),
+        ),
+      );
+    }
   }
 }

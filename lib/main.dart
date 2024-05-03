@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'HealWiz',
+      title: 'Iris',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -35,10 +35,9 @@ class MyApp extends StatelessWidget {
             return HomeScreen();
           } else {
             return Splash();
-          }
+          } 
         },
       ),
-    );
+    ); 
   }
 }
- 
