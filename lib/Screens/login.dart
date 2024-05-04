@@ -287,8 +287,6 @@ class _SignInScreenState extends State<SignInScreen> {
                     } else {
                       _customSnackBar(context, res);
                     }
-
-                    print('asda');
                   },
                   borderRadius: 24,
                   bgColor: AppColor.kBackground.withOpacity(0.3),

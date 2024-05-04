@@ -59,11 +59,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
             builder: (context) => const HomeScreen(),
           ),
         );
-      } else { 
+      } else {
         _customSnackBar(context, res);
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => SignUpScreen(), 
+            builder: (context) => SignUpScreen(),
           ),
         );
       }
@@ -349,7 +349,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         height: 56,
                         textColor: AppColor.kGrayscaleDark100,
                         width: 260,
-                        onTap: () {},
+                        onTap: () async {
+                          final res = await AuthMethods().signInWithGoogle();
+
+                          if (res == 'success') {
+                            _customSnackBar(context, 'Gsigned IN');
+                            _navigateToHome(context);
+                          } else {
+                            _customSnackBar(context, res);
+                          }
+                        },
                         borderRadius: 24,
                         bgColor: AppColor.kBackground.withOpacity(0.3),
                         text: 'Continue with Google',
@@ -373,6 +382,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
     );
   }
+}
+
+void _navigateToHome(BuildContext context) {
+  Navigator.of(context).push(MaterialPageRoute(
+    builder: (context) => const HomeScreen(),
+  ));
 }
 
 void _navigatetoLogin(BuildContext context) {

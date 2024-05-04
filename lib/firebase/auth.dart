@@ -50,14 +50,11 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:healwiz/models/users.dart';
 
-import '../Screens/storage.dart';
 
 class AuthMethods {
   final _auth = FirebaseAuth.instance;
@@ -76,7 +73,7 @@ class AuthMethods {
 // gisginin
 
   Future<String> signInWithGoogle() async {
-    String res = 'some error occured';
+    String res = 'some error occured'; 
     try {
       final GoogleSignInAccount? googleSignInAccount =
           await googleSignIn.signIn();
@@ -92,7 +89,6 @@ class AuthMethods {
       }
     } on FirebaseAuthException catch (e) {
       res = e.toString();
-      print(res);
       throw res;
     }
     return res;
