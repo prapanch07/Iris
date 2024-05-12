@@ -33,13 +33,14 @@ class _SplashState extends State<Splash> {
           // If the user is logged in, navigate to the home screen
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
+            MaterialPageRoute(builder: (context) => const HomeScreen()),
           );
         } else {
           // If the user is not logged in, navigate to the sign in screen
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => IntroductionPageView()),
+            MaterialPageRoute(
+                builder: (context) => const IntroductionPageView()),
           );
         }
       },

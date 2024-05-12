@@ -192,29 +192,6 @@ class _SignInScreenState extends State<SignInScreen> {
                 const SizedBox(height: 32),
                 Column(
                   children: [
-                    // PrimaryButton(
-                    //   elevation: 0,
-                    //   onTap: () async {
-                    //     // await _signInWithEmailAndPassword(); // Wait for authentication process to complete
-                    //     // // Navigate to home screen only if authentication is successful
-                    //     // if (_auth.currentUser != null) {
-                    //     //   Navigator.pushReplacement(
-                    //     //     context,
-                    //     //     MaterialPageRoute(
-                    //     //       builder: (context) => HomeScreen(),
-                    //     //     ),
-                    //     //   );
-                    //     // }
-                    //     loginUser();
-                    //   },
-                    //   text: 'LogIn',
-                    //   bgColor: AppColor.bgColor,
-                    //   borderRadius: 20,
-                    //   height: 46,
-                    //   width: 327,
-                    //   textColor: AppColor.kWhite,
-                    //   fontSize: 14,
-                    // ),
                     InkWell(
                       onTap: () => loginUser(),
                       child: Container(

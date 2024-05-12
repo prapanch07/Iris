@@ -62,7 +62,8 @@ class _ScreenArthrerisState extends State<ScreenArthritis> {
 
         setState(() {
           predicteddata = decodedResponse;
-          predictdisease = decodedResponse.split(',');
+          predictdisease = decodedResponse.split('"');
+          print(predictdisease);
         });
 
         if (response.statusCode == 200) {
@@ -159,7 +160,7 @@ class _ScreenArthrerisState extends State<ScreenArthritis> {
                   alignment: Alignment.bottomLeft,
                   child: Text(
                     predicteddata != null
-                        ? "Disease :  ${predictdisease![0].split(':')[1].split('"')[1]}"
+                        ? "Disease :  ${predictdisease![1]}"
                         : 'no prediction',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
@@ -169,24 +170,20 @@ class _ScreenArthrerisState extends State<ScreenArthritis> {
                 ),
               ),
               const Gap(10),
-              Padding(
+              Padding( 
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: predicteddata != null
-                    ? predictdisease![0].split(':')[1].split('"')[1] ==
-                            'Pneumonia'
+                    ? predictdisease![1] == 'Arthritis'
                         ? const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text(
-                              'Ies with high accuracy and efficiency, aiding healthcare professionals in making timely and informed decisions. However, ongoing research and development are essential to further refine these models, improve their performance, and integrate them effectively into clinical practice to enhance patient care and outcomes.',
+                              'Type sentence for arithritissss ',
                               textAlign: TextAlign.justify,
                               style: TextStyle(fontWeight: FontWeight.w500),
                             ),
                           )
-                        : predictdisease![0].split(':')[1].split('"')[1] ==
-                                'covid'
-                            ? const Text('covid')
-                            : const Text('Normal')
+                        : const Text('Type sentence for normal no disease')
                     : const Text('no preditcion'),
               ),
               predicteddata != null

@@ -225,73 +225,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(height: 28),
               Column(
                 children: [
-                  // PrimaryButton(
-                  //   elevation: 0,
-                  //   onTap: () async {
-                  //     //TODO: Sign up is done if you want you can move this code to auth
-
-                  //     //------From Here
-
-                  //     // try {
-                  //     //   UserCredential userCredential =
-                  //     //       await _auth.createUserWithEmailAndPassword(
-                  //     //     email: emailC.text.trim(),
-                  //     //     password: passwordC.text.trim(),
-                  //     //   );
-
-                  //     //   print(
-                  //     //       'This is response of createUserWithEmailAndPassword() method ${userCredential.user!.uid}');
-
-                  //     //   name = '${firstName.text} ${listName.text}';
-                  //     //   print('This is the name of the user $name');
-
-                  //     //   if (userCredential.user != null) {
-                  //     //     //store user data in firestore
-                  //     //     CollectionReference users =
-                  //     //         FirebaseFirestore.instance.collection('Users');
-                  //     //     await users.doc(userCredential.user!.uid).set({
-                  //     //       'id': userCredential.user!.uid,
-                  //     //       'image': '',
-                  //     //       'name': name,
-                  //     //       'email': emailC.text.trim(),
-                  //     //     });
-                  //     //     print('User added to firestore $users');
-
-                  //     //     ScaffoldMessenger.of(context).showSnackBar(
-                  //     //       const SnackBar(
-                  //     //         content: Text('Sign Up Successful'),
-                  //     //       ),
-                  //     //     );
-                  //     //   }
-                  //     // } catch (e) {
-                  //     //   print(e);
-                  //     //   ScaffoldMessenger.of(context).showSnackBar(
-                  //     //     SnackBar(
-                  //     //       content: Text(e.toString()),
-                  //     //     ),
-                  //     //   );
-                  //     // }
-
-                  //     // signUpUser();
-
-                  //     //
-                  //     // Navigator.pushReplacement(
-                  //     //   context,
-                  //     //   MaterialPageRoute(
-                  //     //     builder: (context) => SignInScreen(),
-                  //     //   ),
-                  //     // );
-
-                  //     //------To Here
-                  //   },
-                  //   text: 'Create Account',
-                  //   bgColor: AppColor.bgColor,
-                  //   borderRadius: 20,
-                  //   height: 46,
-                  //   width: 327,
-                  //   textColor: AppColor.kWhite,
-                  // ),
-
+                 
                   InkWell(
                     onTap: () => signUpUser(),
                     child: Container(

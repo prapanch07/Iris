@@ -13,7 +13,6 @@ import 'package:healwiz/Screens/disease%20screens/arthritis.dart';
 import 'package:healwiz/Screens/about.dart';
 import 'package:healwiz/Screens/contact.dart';
 import 'package:healwiz/themes/theme.dart';
-import 'package:healwiz/Screens/login.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -57,13 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  // Future<void> _signout() async {
-  //   Auth().signOut();
-
-  //   Navigator.of(context).pushReplacement(MaterialPageRoute(
-  //     builder: (context) => SignInScreen(),
-  //   ));
-  // }
+  
   void _customSnackBar(BuildContext context, String text) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
