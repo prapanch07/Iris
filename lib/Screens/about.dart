@@ -12,12 +12,12 @@ class AboutUsPage extends StatelessWidget {
           style: TextStyle(color: AppColor.kWhite),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body:const Padding(
+        padding:  EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            Text( 
               'Welcome to Our App!',
               style: TextStyle(
                 fontSize: 24,

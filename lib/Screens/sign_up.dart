@@ -376,7 +376,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   title4: ' Conditions of Use',
                 ),
               ),
-            ],
+            ],  
           ),
         ),
       ),

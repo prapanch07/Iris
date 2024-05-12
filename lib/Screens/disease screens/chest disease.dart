@@ -21,6 +21,7 @@ class _ScreenArthrerisState extends State<ScreenChestDisease> {
   File? image;
   Uint8List? displayimg;
   String? predicteddata;
+  List? predictdisease;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class _ScreenArthrerisState extends State<ScreenChestDisease> {
       try {
         final multipartRequest = http.MultipartRequest(
           'POST',
-          artheritisuri,
+          chestdiseaseuri,
         );
 
         // Add the image to the request
@@ -61,6 +62,7 @@ class _ScreenArthrerisState extends State<ScreenChestDisease> {
 
         setState(() {
           predicteddata = decodedResponse;
+          predictdisease = decodedResponse.split(',');
         });
 
         if (response.statusCode == 200) {
@@ -129,7 +131,7 @@ class _ScreenArthrerisState extends State<ScreenChestDisease> {
                         vertical: 10,
                       ),
                       child: Image(
-                        height: _size.height / 2,
+                        height: _size.height / 3,
                         width: _size.width,
                         fit: BoxFit.cover,
                         image: MemoryImage(displayimg!),
@@ -156,14 +158,46 @@ class _ScreenArthrerisState extends State<ScreenChestDisease> {
                 child: Align(
                   alignment: Alignment.bottomLeft,
                   child: Text(
-                    predicteddata != null ? predicteddata! : 'no prediction',
+                    predicteddata != null
+                        ? "Disease :  ${predictdisease![0].split(':')[1].split('"')[1]}"
+                        : 'no prediction',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
                   ),
                 ),
-              )
+              ),
+              const Gap(10),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: predicteddata != null
+                    ? predictdisease![0].split(':')[1].split('"')[1] ==
+                            'Pneumonia'
+                        ? const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              'Ies with high accuracy and efficiency, aiding healthcare professionals in making timely and informed decisions. However, ongoing research and development are essential to further refine these models, improve their performance, and integrate them effectively into clinical practice to enhance patient care and outcomes.',
+                              textAlign: TextAlign.justify,
+                              style: TextStyle(fontWeight: FontWeight.w500),
+                            ),
+                          )
+                        : predictdisease![0].split(':')[1].split('"')[1] ==
+                                'covid'
+                            ? const Text('covid')
+                            : const Text('Normal')
+                    : const Text('no preditcion'),
+              ),
+              predicteddata != null
+                  ? const Text(
+                      'For further informatrion please consult a doctor',
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red),
+                    )
+                  : const Text('')
             ],
           ),
         ),

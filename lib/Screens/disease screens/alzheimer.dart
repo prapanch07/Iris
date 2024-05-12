@@ -13,7 +13,7 @@ import 'package:http/http.dart' as http;
 class ScreenAlzheimer extends StatefulWidget {
   const ScreenAlzheimer({Key? key}) : super(key: key);
 
-  @override 
+  @override
   State<ScreenAlzheimer> createState() => _ScreenArthrerisState();
 }
 
@@ -21,6 +21,7 @@ class _ScreenArthrerisState extends State<ScreenAlzheimer> {
   File? image;
   Uint8List? displayimg;
   String? predicteddata;
+  List? predictdisease;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class _ScreenArthrerisState extends State<ScreenAlzheimer> {
       try {
         final multipartRequest = http.MultipartRequest(
           'POST',
-          artheritisuri,
+         alzheimeruri,
         );
 
         // Add the image to the request
@@ -61,6 +62,7 @@ class _ScreenArthrerisState extends State<ScreenAlzheimer> {
 
         setState(() {
           predicteddata = decodedResponse;
+          predictdisease = decodedResponse.split(',');
         });
 
         if (response.statusCode == 200) {
@@ -101,11 +103,11 @@ class _ScreenArthrerisState extends State<ScreenAlzheimer> {
     return RefreshIndicator(
       onRefresh: () => _sendImage(),
       child: Scaffold(
-        appBar: AppBar( 
+        appBar: AppBar(
           backgroundColor: Colors.deepPurple,
           title: Text(
             "alzheimer's",
-            style: TextStyle( 
+            style: TextStyle(
               color: AppColor.kWhite,
               fontWeight: FontWeight.bold,
               letterSpacing: 0.3,
@@ -129,9 +131,9 @@ class _ScreenArthrerisState extends State<ScreenAlzheimer> {
                         vertical: 10,
                       ),
                       child: Image(
-                        height: _size.height / 2,
+                        height: _size.height / 3,
                         width: _size.width,
-                        fit: BoxFit.cover,
+                        fit: BoxFit.cover, 
                         image: MemoryImage(displayimg!),
                       ),
                     )
@@ -151,18 +153,50 @@ class _ScreenArthrerisState extends State<ScreenAlzheimer> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 40),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 0, horizontal: 40),
                 child: Align(
                   alignment: Alignment.bottomLeft,
                   child: Text(
-                    predicteddata != null ? predicteddata! : 'no prediction',
+                    predicteddata != null
+                        ? "Disease :  ${predictdisease![0].split(':')[1].split('"')[1]}"
+                        : 'no prediction',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
                   ),
                 ),
-              )
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: predicteddata != null
+                    ? predictdisease![0].split(':')[1].split('"')[1] ==
+                            'Pneumonia'
+                        ? const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              'Ies with high accuracy and efficiency, aiding healthcare professionals in making timely and informed decisions. However, ongoing research and development are essential to further refine these models, improve their performance, and integrate them effectively into clinical practice to enhance patient care and outcomes.',
+                              textAlign: TextAlign.justify,
+                              style: TextStyle(fontWeight: FontWeight.w500),
+                            ),
+                          )
+                        : predictdisease![0].split(':')[1].split('"')[1] ==
+                                'covid'
+                            ? const Text('covid')
+                            : const Text('Normal')
+                    : const Text('no preditcion'),
+              ),
+              predicteddata != null
+                  ? const Text(
+                      'For further informatrion please consult a doctor',
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red),
+                    )
+                  : const Text('')
             ],
           ),
         ),
